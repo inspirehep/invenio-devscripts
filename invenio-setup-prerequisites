@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 #
 # A helper devscript to install and configure Invenio prerequisites.
 # (Apache, MySQL, Python packages, etc.)  For more information, see
@@ -131,7 +131,7 @@ debian_install_packages () {
         sbcl libapache2-mod-xsendfile openoffice.org \
         automake libmysqlclient-dev libxml2-dev libxslt-dev \
         make postfix texlive python-libxml2 python-libxslt1 \
-        redis-server
+        redis-server locate > /dev/null
     # restart Redis explicitly; useful for Travis-CI VMs
     sudo /usr/sbin/service redis-server restart
     # installing libhdf5-dev is OS version dependent:
@@ -141,7 +141,8 @@ debian_install_packages () {
         sudo apt-get install -qqy libhdf5-serial-dev
     fi
     # install pip
-    if [ ! -e $reqfile ]; then
+    if [ ! `which pip` ]; then
+        sudo apt-get install -qqy curl > /dev/null
         curl http://python-distribute.org/distribute_setup.py | sudo python
         sudo easy_install pip==1.5.6
     fi

@@ -79,11 +79,11 @@ if [ "${CFG_INVENIO_SYMLINK_INSTALLER}" = "1" ]; then
 else
     ./configure --prefix=$CFG_INVENIO_PREFIX
 fi
-make -s
-sudo -u $CFG_INVENIO_USER make -s install
-sudo -u $CFG_INVENIO_USER make -s install-jquery-plugins
-sudo -u $CFG_INVENIO_USER make -s install-mathjax-plugin
-sudo -u $CFG_INVENIO_USER make -s install-ckeditor-plugin
+make -s > /dev/null
+sudo -u $CFG_INVENIO_USER make -s install > /dev/null
+# sudo -u $CFG_INVENIO_USER make -s install-jquery-plugins
+# sudo -u $CFG_INVENIO_USER make -s install-mathjax-plugin
+# sudo -u $CFG_INVENIO_USER make -s install-ckeditor-plugin
 sudo -u $CFG_INVENIO_USER make -s install-pdfa-helper-files
 
 # if applicable, install also Twitter Bootstrap (for 'next' branch):

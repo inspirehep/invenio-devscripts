@@ -73,7 +73,7 @@ cd $(dirname ${CFG_INVENIO_SRCDIR})
 if [ -d invenio-devscripts/.git ]; then
     echo "[INFO] invenio-devscripts sources seem to be already installed."
 else
-    git clone https://github.com/tiborsimko/invenio-devscripts.git
+    git clone https://github.com/inspirehep/invenio-devscripts.git
 fi
 if [ -d invenio/.git ]; then
     echo "[INFO] invenio sources seem to be already installed."
