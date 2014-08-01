@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 #
 # A helper devscript to install and configure Invenio prerequisites.
 # (Apache, MySQL, Python packages, etc.)  For more information, see
@@ -107,7 +107,8 @@ redhat6_install_packages () {
     # get rid of some system Python packages, if installed, because we'll use pip later
     sudo yum erase -y python-nose numpy python-matplotlib seekwatcher python-setuptools python-pip
     # install pip
-    curl https://bootstrap.pypa.io/get-pip.py | sudo python
+    curl http://python-distribute.org/distribute_setup.py | sudo python
+    sudo easy_install pip==1.5.6
     # install Python dependencies
     olddir=`pwd`
     cd $CFG_INVENIO_SRCDIR
@@ -139,10 +140,11 @@ debian_install_packages () {
     else
         sudo apt-get install -qqy libhdf5-serial-dev
     fi
-    # install distribute and pip
-    sudo apt-get remove -y python-setuptools python-pip
-    sudo apt-get -qq install -y curl
-    curl https://bootstrap.pypa.io/get-pip.py | sudo python
+    # install pip
+    if [ ! -e $reqfile ]; then
+        curl http://python-distribute.org/distribute_setup.py | sudo python
+        sudo easy_install pip==1.5.6
+    fi
     # install Python dependencies via pip
     olddir=`pwd`
     cd $CFG_INVENIO_SRCDIR
@@ -161,7 +163,8 @@ freebsd_install_packages () {
         ap22-mod_wsgi ap22-mod_xsendfile libxml2 libxslt hdf5 \
         redis
     # install distribute and pip
-    curl https://bootstrap.pypa.io/get-pip.py | sudo python
+    curl http://python-distribute.org/distribute_setup.py | sudo python
+    sudo easy_install pip==1.5.6
     # install Python dependencies via pip
     olddir=`pwd`
     cd $CFG_INVENIO_SRCDIR
