@@ -193,13 +193,13 @@ fi
 sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/inveniocfg --create-apache-conf
 
 # create demo site
-sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/inveniocfg --create-demo-site --yes-i-know
+sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/inveniocfg --create-demo-site --yes-i-know > /dev/null
 
 # MySQL-5.5 hack: restart Apache back:
 sudo $CFG_INVENIO_APACHECTL start
 
 # load Atlantis demo records:
-sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/inveniocfg --load-demo-records --yes-i-know
+sudo -u $CFG_INVENIO_USER $CFG_INVENIO_PREFIX/bin/inveniocfg --load-demo-records --yes-i-know > /dev/null
 
 # restart Invenio WSGI app:
 sudo -u $CFG_INVENIO_USER touch $CFG_INVENIO_PREFIX/var/www-wsgi/invenio.wsgi
